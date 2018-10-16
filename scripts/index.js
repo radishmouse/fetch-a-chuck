@@ -2,17 +2,49 @@
 const triggerElement = document.querySelector('[ data-trigger]');
 const outputElement = document.querySelector('[ data-output]');
 
+function showError() {
+    console.log('whoops');
+    alert('something went wrong. you are not chuck norris');
+    return 'knock knock';
+}
+
 // function that gets a chuck norris joke
 function getJoke() {
-    fetch('https://api.icndb.com/jokes/random')
+    fetch('https://api.asdfsadf.com/jokes/random')
         .then(convertToJson)
+        // .then(x => {debugger})
         .then(extractJokeText)
         .then(drawJoke)
-    // .then( j => {
-    // //   document.body.textContent = j.value.joke
-    //     drawJoke(j.value.joke);
-    // } )    
+        .catch(showError)
+        .then(x => {
+            console.log('i am still here!');
+            console.log(x);
+        })
 }
+
+// function that gets a list of GoT characters
+function getList() {
+    fetch('https://www.anapioficeandfire.com/api/characters')
+        .then(convertToJson)
+        .then(getUrlForOneCharacter)
+        .then(getCharacterData)
+        .then(convertToJson)
+        .then(x => console.log(x))
+        // .then(drawCharacterData)
+}
+
+
+// function that gets one character
+function getUrlForOneCharacter(characterArray) {
+    // console.log(characterArray);
+    let firstCharacter = characterArray[0];
+    return firstCharacter.url;
+}
+
+function getCharacterData(url) {
+    return fetch(url);
+}
+
 
 function convertToJson(r) {
     return r.json();
@@ -34,6 +66,6 @@ function drawJoke(jokeText) {
 
 // main function that attaches button listener
 function main() {
-    triggerElement.addEventListener('click', getJoke);
+    triggerElement.addEventListener('click', getList);
 }
 main();
