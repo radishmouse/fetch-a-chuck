@@ -47,9 +47,9 @@ function cacheJoke(jokeObj) {
 }
 
 function showCachedJoke(err) {
-    // console.log(err);
+    console.log(err);
     // drawJoke(cachedJoke);
-    return cachedJoke;
+    return localStorage.getItem('joke');
 }
 
 
