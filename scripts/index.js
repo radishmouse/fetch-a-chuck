@@ -64,11 +64,11 @@ function drawJoke(jokeText) {
 // main function that attaches button listener
 function main() {
     triggerElement.addEventListener('click', function () {
-        console.log('about to start the promise chain');
+        // console.log('about to start the promise chain');
         jokePromise = getJoke();
-        console.log('ok, I started the promise chain');
-        console.log(jokePromise);
-        console.log('that was a promise for the joke');
+        // console.log('ok, I started the promise chain');
+        // console.log(jokePromise);
+        // console.log('that was a promise for the joke');
     });
 }
 main();
