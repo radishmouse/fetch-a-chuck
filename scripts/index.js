@@ -9,7 +9,7 @@ let jokePromise;
 // function that gets a chuck norris joke
 function getJoke() {
     return fetch('https://api.icndb.com/jokes/random')
-        .then(convertToJson)
+        .then(convertToJson) // this converts the thing to the thing
         .then(cacheJoke)
         .then(extractJokeText)
         .catch(showCachedJoke)
@@ -60,15 +60,36 @@ function drawJoke(jokeText) {
     outputElement.appendChild(newJoke);
 }
 
+function handleZodiacError(whichSign) {
+    console.log(whichSign);
+}
+
+function getZodiac() {
+
+    let sign = "aries";
+
+    fetch('https://my-little-cors-proxy.herokuapp.com/https://zodiacal.herokuapp.com/api')
+        .then(convertToJson)
+        .then(function (payload) {
+            //
+            // return sign;
+        })
+        .then(function () {})
+        .catch(function () {
+            handleZodiacError(sign);
+        });
+}
+
 
 // main function that attaches button listener
 function main() {
     triggerElement.addEventListener('click', function () {
         console.log('about to start the promise chain');
-        jokePromise = getJoke();
+        // jokePromise = getJoke();
+        getZodiac();
         console.log('ok, I started the promise chain');
-        console.log(jokePromise);
-        console.log('that was a promise for the joke');
+        // console.log(jokePromise);
+        // console.log('that was a promise for the joke');
     });
 }
 main();
