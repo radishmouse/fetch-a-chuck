@@ -20,18 +20,13 @@ function getJoke() {
     // } )    
 }
 
-function showCachedJoke(err) {
-    console.log(err);
-    // drawJoke(cachedJoke);
-    return cachedJoke;
-}
 
 function convertToJson(r) {
-    console.log(r);
+    // console.log(r);
     let payload = r.json();
     // create intermediate variable for 
     // debugging the response
-    console.log(payload);
+    // console.log(payload);
     return payload;
     // what is convertToJson returning?
 }
@@ -39,10 +34,24 @@ function convertToJson(r) {
 function cacheJoke(jokeObj) {
     // save jokeJson 
     // 1. global variable
-    cachedJoke = jokeObj.value.joke || cachedJoke; // keep what's in cachedJoke if jokeObj.value.joke is falsey
+    // cachedJoke = jokeObj.value.joke || cachedJoke; // keep what's in cachedJoke if jokeObj.value.joke is falsey
+    // return jokeObj;
+    // 2. localStorage.
+    // Letting JS figure out if .joke exists.
+    // That is - do we have a string, or do we have undefined?
+    if (jokeObj.value.joke) { // opting in to "coercion"
+        console.log('Caching joke to localStorage');
+        localStorage.setItem('joke', jokeObj.value.joke);
+    }
     return jokeObj;
-    // 2. localStorage
 }
+
+function showCachedJoke(err) {
+    // console.log(err);
+    // drawJoke(cachedJoke);
+    return cachedJoke;
+}
+
 
 function extractJokeText(jokeObj) {
     // debugger;
@@ -64,11 +73,11 @@ function drawJoke(jokeText) {
 // main function that attaches button listener
 function main() {
     triggerElement.addEventListener('click', function () {
-        console.log('about to start the promise chain');
+        // console.log('about to start the promise chain');
         jokePromise = getJoke();
-        console.log('ok, I started the promise chain');
-        console.log(jokePromise);
-        console.log('that was a promise for the joke');
+        // console.log('ok, I started the promise chain');
+        // console.log(jokePromise);
+        // console.log('that was a promise for the joke');
     });
 }
 main();
