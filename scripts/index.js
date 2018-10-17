@@ -4,10 +4,11 @@ const outputElement = document.querySelector('[ data-output]');
 
 // Global joke cache
 let cachedJoke = 'Why did chuck norris cross the road? The road knew better than to cross him.';
+let jokePromise;
 
 // function that gets a chuck norris joke
 function getJoke() {
-    fetch('https://api.icndb.com/jokes/random')
+    return fetch('https://api.icndb.com/jokes/random')
         .then(convertToJson)
         .then(cacheJoke)
         .then(extractJokeText)
@@ -62,6 +63,12 @@ function drawJoke(jokeText) {
 
 // main function that attaches button listener
 function main() {
-    triggerElement.addEventListener('click', getJoke);
+    triggerElement.addEventListener('click', function () {
+        console.log('about to start the promise chain');
+        jokePromise = getJoke();
+        console.log('ok, I started the promise chain');
+        console.log(jokePromise);
+        console.log('that was a promise for the joke');
+    });
 }
 main();
