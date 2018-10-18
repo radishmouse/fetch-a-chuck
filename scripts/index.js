@@ -82,7 +82,6 @@ function urlForRandomCharacter() {
     return `https://www.anapioficeandfire.com/api/characters/${getRandomInt()}`;
 }
 
-
 function getOneCharacter() {
     // let theRandomURL = urlForRandomCharacter();
     // return fetch(theRandomURL)
@@ -92,12 +91,14 @@ function getOneCharacter() {
 }
 
 function combineCharacterAndHouseInfo(characterInfo) {
-    let houseURL = characterInfo.allegiances[0];
-    console.log(houseURL);
-    let houseInfoPromise = getHouseInfo(houseURL) // what do i do with this?
+    // let houseURL = characterInfo.allegiances[0];
+    // console.log(houseURL);
+    // let houseInfoPromise = getHouseInfo(houseURL) // what do i do with this?
     // and how will our hero combine it with the characterInfo?
+    // return Promise.all([characterInfo, houseInfoPromise]);
 
-    return Promise.all([characterInfo, houseInfoPromise]);
+    let houseInfoPromises = characterInfo.allegiances.map(getHouseInfo);
+    return Promise.all([characterInfo, ...houseInfoPromises]);
 }
 
 function getHouseInfo(url) {
@@ -110,7 +111,7 @@ function drawCharacterAndHouseInfo(arrayOfResults) {
     console.log(arrayOfResults);
 }
 
-function getCharacterAndHouseThenDraw() {
+function getCharacterAndHousesThenDraw() {
     getOneCharacter()
         .then(combineCharacterAndHouseInfo) // ???
         .then(drawCharacterAndHouseInfo)
